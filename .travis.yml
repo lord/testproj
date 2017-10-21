@@ -1,0 +1,20 @@
+language: rust
+rust: stable
+
+install:
+  - npm install -g wargo
+
+  # install recent cmake, since Trusty only ships with an old version
+  - (cd ~; curl -sSL https://cmake.org/files/v3.5/cmake-3.5.2-Linux-x86_64.tar.gz | tar -xz)
+  - sudo mv /usr/bin/cmake /usr/bin/cmake.old
+  - sudo ln -s ~/cmake-3.5.2-Linux-x86_64/bin/cmake /usr/bin/cmake
+
+script:
+  - wargo build --verbose
+  - wargo test --verbose
+
+  addons:
+    sauce_connect:
+      username: "robertlord"
+    jwt:
+      secure: "FfAqPpjPB/bZS7FZJXMAGwU3VSuzevIu0NuS6WQ+ravCE+CfeRuOJqxmVkkO8gNygCrB0gu/oxoaOtKlMxTvkwByrtcnInkQytRzd/4oTZRHZQGVnyqQvu9Dwmsnp5VbO0idxYK9DZbkasLjpWVdI56glgALHgNt1KKoamIJs7IORV0p2midW2yIybYwkP71kKxskF+ebqK2nqNwIJKvmNFaw0HND8QRYGYVGD4jqqBA7Zu/zPB+8d04pr6xdIJW199vw98kKIAhBAOneCCrAz5NWvDEHReDQ8vvKsPaH2JxWYec0tCgfMv18NBRANloePzAF6ku3jmPSd1+sDi6SleQygsga2Bl6U3FUKHzA+AIbWk5OVWWUFXLmWQ2kpZEDGqeXxbgwLE/EBqrlUuIEAFa+LnHBGx0rdEGIglvEqnO9mUMv1auotrsWmu/omlH2cbTDVEmHAXhEuurBZqAfOV+nvsGWkanZMXFgiIbMUN20MyjosgCQza7VEwi5Vz88ziDdArYVa7seh8iJQJCEPxZBViNeYoIR7h9wEqnim+VbjD0hOWYj/KbvHxLozHE6PCg1LnYQDwuIeTnOx+s4KHCKXkSZRj++GQTbsVQGvqTgAPd0S/Vi3Bqd7BPENH0V1zl9y8pkQhgKSSTd6FXLehWIShgCoULeNOBxPdmO7M="
